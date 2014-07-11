@@ -108,7 +108,8 @@ namespace WindowsFormsApplication1
                 if (ishttps == true)
                 {
                     //这2句代码表示如果要求客户端证书，将客户端证书加入request，不需要客户端证书的https请求则不需要此代码
-                    X509Certificate cer = new X509Certificate("plist.dll");
+                    string filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "plist.dll");
+                    X509Certificate cer = new X509Certificate(filePath);
                     request.ClientCertificates.Add(cer);
                 }
                 

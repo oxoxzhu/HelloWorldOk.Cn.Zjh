@@ -269,8 +269,8 @@ namespace WindowsFormsApplication1
             CBNList.Add(CBN5);
 
 
-            ThreadEx threadex = new ThreadEx();
-            threadex.Start(new ThreadStart(threadex.GetCheckVersion), new EventHandler(GetCheckVersion), this);
+            //ThreadEx threadex = new ThreadEx();
+            //threadex.Start(new ThreadStart(threadex.GetCheckVersion), new EventHandler(GetCheckVersion), this);
 
 
 

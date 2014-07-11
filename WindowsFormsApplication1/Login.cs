@@ -129,8 +129,8 @@ namespace WindowsFormsApplication1
             panel_qq.Left = 0;
 
 
-            ThreadEx threadex = new ThreadEx();
-            threadex.Start(new ThreadStart(threadex.GetCheckVersion), new EventHandler(GetCheckVersion), this);
+            //ThreadEx threadex = new ThreadEx();
+            //threadex.Start(new ThreadStart(threadex.GetCheckVersion), new EventHandler(GetCheckVersion), this);
 
   
         }

@@ -10,7 +10,7 @@ namespace WindowsFormsApplication1
         public static String channel_code = "4";
 
         public static String Protocol = "https://";
-        public static String Domain = "www.okcoin.com";
+        public static String Domain = "www.okcoin.cn";
 
         //public static String Protocol = "http://";
         //public static String Domain = "local.okcoin.com";

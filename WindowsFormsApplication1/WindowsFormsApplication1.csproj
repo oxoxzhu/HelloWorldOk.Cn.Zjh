@@ -150,6 +150,9 @@
   <ItemGroup>
     <Content Include="favicon.ico" />
     <Content Include="ok.ico" />
+    <Content Include="plist.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <None Include="Resources\9825bc315c6034a86581d2d3c913495409237604.jpg" />
   </ItemGroup>
   <ItemGroup>

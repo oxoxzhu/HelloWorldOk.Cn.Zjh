@@ -30,6 +30,7 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Login));
             this.panel_login = new System.Windows.Forms.Panel();
+            this.label_updatealert = new System.Windows.Forms.Label();
             this.linkLabel4 = new System.Windows.Forms.LinkLabel();
             this.linkLabel3 = new System.Windows.Forms.LinkLabel();
             this.linkLabel2 = new System.Windows.Forms.LinkLabel();
@@ -49,7 +50,6 @@
             this.txt_GoogleCheck = new System.Windows.Forms.TextBox();
             this.panel_qq = new System.Windows.Forms.Panel();
             this.webBrowser1 = new System.Windows.Forms.WebBrowser();
-            this.label_updatealert = new System.Windows.Forms.Label();
             this.panel_login.SuspendLayout();
             this.panel_google.SuspendLayout();
             this.panel_qq.SuspendLayout();
@@ -73,6 +73,17 @@
             this.panel_login.Size = new System.Drawing.Size(312, 181);
             this.panel_login.TabIndex = 57;
             this.panel_login.Paint += new System.Windows.Forms.PaintEventHandler(this.panel_login_Paint);
+            // 
+            // label_updatealert
+            // 
+            this.label_updatealert.AutoSize = true;
+            this.label_updatealert.ForeColor = System.Drawing.Color.Red;
+            this.label_updatealert.Location = new System.Drawing.Point(77, 158);
+            this.label_updatealert.Name = "label_updatealert";
+            this.label_updatealert.Size = new System.Drawing.Size(41, 12);
+            this.label_updatealert.TabIndex = 66;
+            this.label_updatealert.Text = "label8";
+            this.label_updatealert.Visible = false;
             // 
             // linkLabel4
             // 
@@ -249,29 +260,18 @@
             // 
             // webBrowser1
             // 
-            this.webBrowser1.Location = new System.Drawing.Point(6, 5);
+            this.webBrowser1.Location = new System.Drawing.Point(3, 3);
             this.webBrowser1.MinimumSize = new System.Drawing.Size(20, 20);
             this.webBrowser1.Name = "webBrowser1";
             this.webBrowser1.Size = new System.Drawing.Size(331, 194);
             this.webBrowser1.TabIndex = 59;
             this.webBrowser1.DocumentCompleted += new System.Windows.Forms.WebBrowserDocumentCompletedEventHandler(this.webBrowser1_DocumentCompleted);
             // 
-            // label_updatealert
-            // 
-            this.label_updatealert.AutoSize = true;
-            this.label_updatealert.ForeColor = System.Drawing.Color.Red;
-            this.label_updatealert.Location = new System.Drawing.Point(77, 158);
-            this.label_updatealert.Name = "label_updatealert";
-            this.label_updatealert.Size = new System.Drawing.Size(41, 12);
-            this.label_updatealert.TabIndex = 66;
-            this.label_updatealert.Text = "label8";
-            this.label_updatealert.Visible = false;
-            // 
             // Login
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(339, 197);
+            this.ClientSize = new System.Drawing.Size(664, 234);
             this.Controls.Add(this.panel_qq);
             this.Controls.Add(this.panel_login);
             this.Controls.Add(this.panel_google);
