@@ -1,0 +1,52 @@
+
+<html>
+	<head>
+		<title>
+		</title>
+		<style>
+		.item{width:206px; height:1px;margin_bottom:5}
+		.left{float:left; width: 136px; height: 15px}
+		.right{float:right;width: 52px; height: 6px;cursor:hand}
+		
+		</style>
+	</head>
+	
+	<body>
+	<div id="frame" style="border: 1px solid #FF0000">
+		<div></div>
+			
+	</div>
+
+	
+	</body>
+
+<script language ="javascript">
+function killself(obj)
+{
+	obj.parentElement.parentElement.outerHTML = "";
+}
+
+function add(name,url)
+{
+
+	var html =  "<div class=\"item\"><div class=\"left\"><a href=\"";
+    html += url;
+    html += "\">";
+    html += name;
+    html += "</a></div><div class=\"right\"><div style=\"float:left;margin_right:10\">´æ</div><div style=\"float:left\" onclick = \"killself(this);\">É¾</div></div></div><div></div>";
+	var obj = document.getElementById('frame');
+	obj.lastChild.outerHTML = html ;
+
+}
+
+add("name","url");
+add("name","url");
+add("name","url");
+add("name","url");
+
+
+
+
+
+</script>
+</html>
