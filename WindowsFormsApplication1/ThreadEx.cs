@@ -96,7 +96,6 @@ namespace WindowsFormsApplication1
             OnReadParamEvent(Data.GetNewVersionResult.ToString());//触发事件   
         }
 
-
         public void GetDepth(object obj)
         {
             DepthParm depthparm = obj as DepthParm;

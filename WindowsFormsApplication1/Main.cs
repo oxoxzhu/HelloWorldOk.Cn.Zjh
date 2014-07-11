@@ -672,7 +672,6 @@ namespace WindowsFormsApplication1
         {
             lock(Data.SellDepthList)
             {
-
                 txt_tradeCnyPrice.Text = CSP1.Text;
             }
 
@@ -850,6 +849,7 @@ namespace WindowsFormsApplication1
                 {
                 }
             }
+            //在这里获得了数据
             GetReckonBuy();
         }
 
@@ -909,6 +909,7 @@ namespace WindowsFormsApplication1
                     lab_ReckonBuy.Text = (Data.free["cny"] / Data.curlast).ToString("0.000").TrimEnd('0').TrimEnd('.');
                     lab_ReckonSell.Text = (Data.free["cur_coin_num"] * Data.curlast).ToString("0.000").TrimEnd('0').TrimEnd('.');
                     label_curlast.Text = Data.curlast.ToString("0.000000").TrimEnd('0').TrimEnd('.');
+                    //这里开始重头戏
                 }
 
 
@@ -1131,11 +1132,6 @@ namespace WindowsFormsApplication1
         {
             SetTradeCnyPrice(sender);
         }
-
-        private void txt_license_TextChanged(object sender, EventArgs e)
-        {
-
-        }
         private void CSN5_Click(object sender, EventArgs e)
         {
             SetTradeCnyNum(sender);
@@ -1184,10 +1180,6 @@ namespace WindowsFormsApplication1
         private void CBN5_Click(object sender, EventArgs e)
         {
             SetTradeCnyNum(sender);
-        }
-
-        private void textBox1_TextChanged(object sender, EventArgs e)
-        {
         }
 
         private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
@@ -1556,7 +1548,11 @@ namespace WindowsFormsApplication1
             }
         }
 
-
+        /// <summary>
+        /// 撤销单个订单
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void listView_BuyWait_MouseDoubleClick(object sender, MouseEventArgs e)
         {
             ListView.SelectedListViewItemCollection items = listView_Order.SelectedItems;
@@ -1579,14 +1575,6 @@ namespace WindowsFormsApplication1
         private void GetCancelOrder(Object o, EventArgs e)
         {
 
-            if (Data.GetOrderHistoryResult == Define.Login_Succeed)
-            {
-                lock (Data.OrderList)
-                {
-                    ShowList(listView_Order, Data.OrderList);
-                }
-
-            }
         }
 
         private void tabControl1_SizeChanged(object sender, EventArgs e)
@@ -1621,12 +1609,6 @@ namespace WindowsFormsApplication1
 
         private void GetDepth(Object o, EventArgs e)
         {
-            if (Data.GetDepthResult == 0)
-            {
-                //Protocol.GetDepth();
-                showsellconsign();
-                showbuyconsign();
-            }
 
         }
 
@@ -1667,14 +1649,6 @@ namespace WindowsFormsApplication1
         private void GetOrder(Object o, EventArgs e)
         {
 
-            if (Data.GetOrderHistoryResult == Define.Login_Succeed)
-            {
-                lock(Data.OrderList)
-                {
-                    ShowList(listView_Order, Data.OrderList);
-                }
-
-            }
         }
 
 
@@ -1690,18 +1664,6 @@ namespace WindowsFormsApplication1
 
             ThreadEx threadex = new ThreadEx();
             threadex.Start(new ParameterizedThreadStart(threadex.GetOrderHistory), (Object)orderparm, new EventHandler(GetOrderHistory), this);
-        }
-
-        private void GetOrderHistory(Object o, EventArgs e)
-        {
- 
-            if (Data.GetOrderHistoryResult == Define.Login_Succeed)
-            {
-                lock (Data.OrderList)
-                {
-                    ShowList(listView_Completed, Data.OrderHistoryList);
-                }
-            }            
         }
 
 
@@ -1762,14 +1724,6 @@ namespace WindowsFormsApplication1
         private void tabPage1_Click(object sender, EventArgs e)
         {
 
-            
-        }
-
-
-
-
-        private void trackSell_Buynum_Scroll(object sender, EventArgs e)
-        {
 
         }
 
@@ -1821,11 +1775,6 @@ namespace WindowsFormsApplication1
         private void button20_Click(object sender, EventArgs e)
         {
             DeleteWarn(1);
-        }
-
-        private void button37_Click_1(object sender, EventArgs e)
-        {
-            
         }
 
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
