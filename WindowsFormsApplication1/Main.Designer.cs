@@ -185,6 +185,13 @@
             this.label36 = new System.Windows.Forms.Label();
             this.textBox_tradePassword_buy = new System.Windows.Forms.TextBox();
             this.textBox_tradePassword_sell = new System.Windows.Forms.TextBox();
+            this.RichTxtLog = new System.Windows.Forms.RichTextBox();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.label50 = new System.Windows.Forms.Label();
+            this.LblSellCount = new System.Windows.Forms.Label();
+            this.LblBuyCount = new System.Windows.Forms.Label();
+            this.label49 = new System.Windows.Forms.Label();
+            this.NotfCoin = new System.Windows.Forms.NotifyIcon(this.components);
             this.groupbox1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -194,6 +201,7 @@
             this.tabControl3.SuspendLayout();
             this.tabPage5.SuspendLayout();
             this.tabPage6.SuspendLayout();
+            this.groupBox2.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupbox1
@@ -231,7 +239,7 @@
             this.groupbox1.Controls.Add(this.CSN5);
             this.groupbox1.Controls.Add(this.CSP5);
             this.groupbox1.Controls.Add(this.label4);
-            this.groupbox1.Location = new System.Drawing.Point(424, 81);
+            this.groupbox1.Location = new System.Drawing.Point(427, 65);
             this.groupbox1.Name = "groupbox1";
             this.groupbox1.Size = new System.Drawing.Size(198, 296);
             this.groupbox1.TabIndex = 24;
@@ -632,7 +640,7 @@
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(11, 142);
+            this.label10.Location = new System.Drawing.Point(158, 79);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(53, 12);
             this.label10.TabIndex = 26;
@@ -641,7 +649,7 @@
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(146, 142);
+            this.label11.Location = new System.Drawing.Point(292, 78);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(53, 12);
             this.label11.TabIndex = 27;
@@ -658,7 +666,7 @@
             // 
             // txt_tradeCnyPrice
             // 
-            this.txt_tradeCnyPrice.Location = new System.Drawing.Point(11, 163);
+            this.txt_tradeCnyPrice.Location = new System.Drawing.Point(158, 100);
             this.txt_tradeCnyPrice.Name = "txt_tradeCnyPrice";
             this.txt_tradeCnyPrice.Size = new System.Drawing.Size(93, 21);
             this.txt_tradeCnyPrice.TabIndex = 29;
@@ -668,7 +676,7 @@
             // label14
             // 
             this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(121, 168);
+            this.label14.Location = new System.Drawing.Point(267, 104);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(11, 12);
             this.label14.TabIndex = 27;
@@ -676,7 +684,7 @@
             // 
             // txt_tradeAmount
             // 
-            this.txt_tradeAmount.Location = new System.Drawing.Point(148, 163);
+            this.txt_tradeAmount.Location = new System.Drawing.Point(294, 99);
             this.txt_tradeAmount.Name = "txt_tradeAmount";
             this.txt_tradeAmount.Size = new System.Drawing.Size(82, 21);
             this.txt_tradeAmount.TabIndex = 29;
@@ -745,9 +753,9 @@
             // 
             this.button10.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.button10.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(163)))), ((int)(((byte)(1)))));
-            this.button10.Location = new System.Drawing.Point(97, 344);
+            this.button10.Location = new System.Drawing.Point(225, 266);
             this.button10.Name = "button10";
-            this.button10.Size = new System.Drawing.Size(232, 25);
+            this.button10.Size = new System.Drawing.Size(154, 25);
             this.button10.TabIndex = 30;
             this.button10.Text = "立即买入";
             this.button10.UseVisualStyleBackColor = true;
@@ -757,7 +765,7 @@
             // 
             this.lab_alert.AutoSize = true;
             this.lab_alert.ForeColor = System.Drawing.Color.Red;
-            this.lab_alert.Location = new System.Drawing.Point(146, 283);
+            this.lab_alert.Location = new System.Drawing.Point(9, 274);
             this.lab_alert.Name = "lab_alert";
             this.lab_alert.Size = new System.Drawing.Size(53, 12);
             this.lab_alert.TabIndex = 26;
@@ -765,7 +773,7 @@
             // 
             // button11
             // 
-            this.button11.Location = new System.Drawing.Point(9, 196);
+            this.button11.Location = new System.Drawing.Point(2, 143);
             this.button11.Name = "button11";
             this.button11.Size = new System.Drawing.Size(105, 23);
             this.button11.TabIndex = 30;
@@ -775,7 +783,7 @@
             // 
             // button12
             // 
-            this.button12.Location = new System.Drawing.Point(9, 278);
+            this.button12.Location = new System.Drawing.Point(2, 225);
             this.button12.Name = "button12";
             this.button12.Size = new System.Drawing.Size(105, 23);
             this.button12.TabIndex = 30;
@@ -794,6 +802,7 @@
             // 
             // timer
             // 
+            this.timer.Interval = 1000;
             this.timer.Tick += new System.EventHandler(this.timer1_Tick);
             // 
             // label5
@@ -868,7 +877,7 @@
             // 
             this.lab_sell_alert.AutoSize = true;
             this.lab_sell_alert.ForeColor = System.Drawing.Color.Red;
-            this.lab_sell_alert.Location = new System.Drawing.Point(777, 282);
+            this.lab_sell_alert.Location = new System.Drawing.Point(836, 148);
             this.lab_sell_alert.Name = "lab_sell_alert";
             this.lab_sell_alert.Size = new System.Drawing.Size(53, 12);
             this.lab_sell_alert.TabIndex = 26;
@@ -1010,7 +1019,7 @@
             // 
             this.button16.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.button16.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(13)))), ((int)(((byte)(0)))));
-            this.button16.Location = new System.Drawing.Point(727, 344);
+            this.button16.Location = new System.Drawing.Point(752, 275);
             this.button16.Name = "button16";
             this.button16.Size = new System.Drawing.Size(232, 25);
             this.button16.TabIndex = 30;
@@ -1106,7 +1115,7 @@
             // 
             // button19
             // 
-            this.button19.Location = new System.Drawing.Point(9, 236);
+            this.button19.Location = new System.Drawing.Point(2, 183);
             this.button19.Name = "button19";
             this.button19.Size = new System.Drawing.Size(105, 23);
             this.button19.TabIndex = 51;
@@ -1228,7 +1237,7 @@
             // 
             // button35
             // 
-            this.button35.Location = new System.Drawing.Point(160, 166);
+            this.button35.Location = new System.Drawing.Point(160, 85);
             this.button35.Name = "button35";
             this.button35.Size = new System.Drawing.Size(42, 25);
             this.button35.TabIndex = 58;
@@ -1238,7 +1247,7 @@
             // 
             // button34
             // 
-            this.button34.Location = new System.Drawing.Point(112, 166);
+            this.button34.Location = new System.Drawing.Point(112, 85);
             this.button34.Name = "button34";
             this.button34.Size = new System.Drawing.Size(42, 25);
             this.button34.TabIndex = 58;
@@ -1248,7 +1257,7 @@
             // 
             // button36
             // 
-            this.button36.Location = new System.Drawing.Point(207, 166);
+            this.button36.Location = new System.Drawing.Point(207, 85);
             this.button36.Name = "button36";
             this.button36.Size = new System.Drawing.Size(42, 25);
             this.button36.TabIndex = 58;
@@ -1304,10 +1313,10 @@
             // 
             this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Controls.Add(this.tabPage3);
-            this.tabControl1.Location = new System.Drawing.Point(293, 397);
+            this.tabControl1.Location = new System.Drawing.Point(464, 367);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(737, 189);
+            this.tabControl1.Size = new System.Drawing.Size(569, 84);
             this.tabControl1.TabIndex = 70;
             this.tabControl1.SelectedIndexChanged += new System.EventHandler(this.tabControl1_SelectedIndexChanged);
             this.tabControl1.SizeChanged += new System.EventHandler(this.tabControl1_SizeChanged);
@@ -1318,7 +1327,7 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(729, 163);
+            this.tabPage1.Size = new System.Drawing.Size(561, 58);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "未成交或部分成交";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -1341,7 +1350,7 @@
             this.tabPage3.Controls.Add(this.listView_Completed);
             this.tabPage3.Location = new System.Drawing.Point(4, 22);
             this.tabPage3.Name = "tabPage3";
-            this.tabPage3.Size = new System.Drawing.Size(729, 163);
+            this.tabPage3.Size = new System.Drawing.Size(561, 58);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "完全成交";
             this.tabPage3.UseVisualStyleBackColor = true;
@@ -1505,7 +1514,7 @@
             // panel_cancel
             // 
             this.panel_cancel.Controls.Add(this.label46);
-            this.panel_cancel.Location = new System.Drawing.Point(470, 401);
+            this.panel_cancel.Location = new System.Drawing.Point(642, 367);
             this.panel_cancel.Name = "panel_cancel";
             this.panel_cancel.Size = new System.Drawing.Size(172, 16);
             this.panel_cancel.TabIndex = 90;
@@ -1514,7 +1523,7 @@
             // 
             this.label46.AutoSize = true;
             this.label46.ForeColor = System.Drawing.Color.Red;
-            this.label46.Location = new System.Drawing.Point(3, 1);
+            this.label46.Location = new System.Drawing.Point(3, 4);
             this.label46.Name = "label46";
             this.label46.Size = new System.Drawing.Size(77, 12);
             this.label46.TabIndex = 0;
@@ -1567,10 +1576,10 @@
             // 
             this.tabControl3.Controls.Add(this.tabPage5);
             this.tabControl3.Controls.Add(this.tabPage6);
-            this.tabControl3.Location = new System.Drawing.Point(9, 397);
+            this.tabControl3.Location = new System.Drawing.Point(9, 302);
             this.tabControl3.Name = "tabControl3";
             this.tabControl3.SelectedIndex = 0;
-            this.tabControl3.Size = new System.Drawing.Size(266, 224);
+            this.tabControl3.Size = new System.Drawing.Size(278, 153);
             this.tabControl3.TabIndex = 97;
             // 
             // tabPage5
@@ -1583,7 +1592,7 @@
             this.tabPage5.Location = new System.Drawing.Point(4, 22);
             this.tabPage5.Name = "tabPage5";
             this.tabPage5.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage5.Size = new System.Drawing.Size(258, 198);
+            this.tabPage5.Size = new System.Drawing.Size(270, 127);
             this.tabPage5.TabIndex = 0;
             this.tabPage5.Text = "BTC价格预警";
             this.tabPage5.UseVisualStyleBackColor = true;
@@ -1592,7 +1601,7 @@
             // 
             this.checkBox2.Appearance = System.Windows.Forms.Appearance.Button;
             this.checkBox2.AutoSize = true;
-            this.checkBox2.Location = new System.Drawing.Point(6, 167);
+            this.checkBox2.Location = new System.Drawing.Point(6, 86);
             this.checkBox2.Name = "checkBox2";
             this.checkBox2.Size = new System.Drawing.Size(81, 22);
             this.checkBox2.TabIndex = 66;
@@ -1605,7 +1614,7 @@
             this.listViewBTC.FullRowSelect = true;
             this.listViewBTC.Location = new System.Drawing.Point(6, 6);
             this.listViewBTC.Name = "listViewBTC";
-            this.listViewBTC.Size = new System.Drawing.Size(246, 151);
+            this.listViewBTC.Size = new System.Drawing.Size(258, 74);
             this.listViewBTC.TabIndex = 60;
             this.listViewBTC.UseCompatibleStateImageBehavior = false;
             this.listViewBTC.SelectedIndexChanged += new System.EventHandler(this.listViewBTC_SelectedIndexChanged_1);
@@ -1620,7 +1629,7 @@
             this.tabPage6.Location = new System.Drawing.Point(4, 22);
             this.tabPage6.Name = "tabPage6";
             this.tabPage6.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage6.Size = new System.Drawing.Size(258, 198);
+            this.tabPage6.Size = new System.Drawing.Size(270, 127);
             this.tabPage6.TabIndex = 1;
             this.tabPage6.Text = "LTC价格预警";
             this.tabPage6.UseVisualStyleBackColor = true;
@@ -1740,7 +1749,7 @@
             // 
             this.label35.AutoSize = true;
             this.label35.ForeColor = System.Drawing.Color.Red;
-            this.label35.Location = new System.Drawing.Point(95, 318);
+            this.label35.Location = new System.Drawing.Point(7, 256);
             this.label35.Name = "label35";
             this.label35.Size = new System.Drawing.Size(53, 12);
             this.label35.TabIndex = 26;
@@ -1750,7 +1759,7 @@
             // 
             this.label36.AutoSize = true;
             this.label36.ForeColor = System.Drawing.Color.Red;
-            this.label36.Location = new System.Drawing.Point(725, 318);
+            this.label36.Location = new System.Drawing.Point(739, 262);
             this.label36.Name = "label36";
             this.label36.Size = new System.Drawing.Size(53, 12);
             this.label36.TabIndex = 26;
@@ -1758,26 +1767,93 @@
             // 
             // textBox_tradePassword_buy
             // 
-            this.textBox_tradePassword_buy.Location = new System.Drawing.Point(163, 315);
+            this.textBox_tradePassword_buy.Location = new System.Drawing.Point(74, 265);
             this.textBox_tradePassword_buy.Name = "textBox_tradePassword_buy";
             this.textBox_tradePassword_buy.PasswordChar = '*';
-            this.textBox_tradePassword_buy.Size = new System.Drawing.Size(166, 21);
+            this.textBox_tradePassword_buy.Size = new System.Drawing.Size(114, 21);
             this.textBox_tradePassword_buy.TabIndex = 99;
             // 
             // textBox_tradePassword_sell
             // 
-            this.textBox_tradePassword_sell.Location = new System.Drawing.Point(791, 312);
+            this.textBox_tradePassword_sell.Location = new System.Drawing.Point(798, 253);
             this.textBox_tradePassword_sell.Name = "textBox_tradePassword_sell";
             this.textBox_tradePassword_sell.PasswordChar = '*';
             this.textBox_tradePassword_sell.Size = new System.Drawing.Size(168, 21);
             this.textBox_tradePassword_sell.TabIndex = 99;
+            // 
+            // RichTxtLog
+            // 
+            this.RichTxtLog.BackColor = System.Drawing.SystemColors.InfoText;
+            this.RichTxtLog.ForeColor = System.Drawing.SystemColors.Window;
+            this.RichTxtLog.Location = new System.Drawing.Point(2, 461);
+            this.RichTxtLog.Name = "RichTxtLog";
+            this.RichTxtLog.Size = new System.Drawing.Size(1017, 143);
+            this.RichTxtLog.TabIndex = 100;
+            this.RichTxtLog.Text = "";
+            // 
+            // groupBox2
+            // 
+            this.groupBox2.Controls.Add(this.label50);
+            this.groupBox2.Controls.Add(this.LblSellCount);
+            this.groupBox2.Controls.Add(this.LblBuyCount);
+            this.groupBox2.Controls.Add(this.label49);
+            this.groupBox2.Location = new System.Drawing.Point(304, 367);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(133, 86);
+            this.groupBox2.TabIndex = 101;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "核心参数显示";
+            // 
+            // label50
+            // 
+            this.label50.AutoSize = true;
+            this.label50.Location = new System.Drawing.Point(28, 57);
+            this.label50.Name = "label50";
+            this.label50.Size = new System.Drawing.Size(65, 12);
+            this.label50.TabIndex = 0;
+            this.label50.Text = "卖出次数 :";
+            // 
+            // LblSellCount
+            // 
+            this.LblSellCount.AutoSize = true;
+            this.LblSellCount.Location = new System.Drawing.Point(95, 57);
+            this.LblSellCount.Name = "LblSellCount";
+            this.LblSellCount.Size = new System.Drawing.Size(11, 12);
+            this.LblSellCount.TabIndex = 0;
+            this.LblSellCount.Text = "0";
+            // 
+            // LblBuyCount
+            // 
+            this.LblBuyCount.AutoSize = true;
+            this.LblBuyCount.Location = new System.Drawing.Point(95, 26);
+            this.LblBuyCount.Name = "LblBuyCount";
+            this.LblBuyCount.Size = new System.Drawing.Size(11, 12);
+            this.LblBuyCount.TabIndex = 0;
+            this.LblBuyCount.Text = "0";
+            // 
+            // label49
+            // 
+            this.label49.AutoSize = true;
+            this.label49.Location = new System.Drawing.Point(28, 26);
+            this.label49.Name = "label49";
+            this.label49.Size = new System.Drawing.Size(65, 12);
+            this.label49.TabIndex = 0;
+            this.label49.Text = "买入次数 :";
+            // 
+            // NotfCoin
+            // 
+            this.NotfCoin.Icon = ((System.Drawing.Icon)(resources.GetObject("NotfCoin.Icon")));
+            this.NotfCoin.Text = "交易";
+            this.NotfCoin.DoubleClick += new System.EventHandler(this.NotfCoin_DoubleClick);
             // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
-            this.ClientSize = new System.Drawing.Size(1042, 633);
+            this.ClientSize = new System.Drawing.Size(1042, 611);
+            this.Controls.Add(this.groupBox2);
+            this.Controls.Add(this.RichTxtLog);
             this.Controls.Add(this.textBox_tradePassword_sell);
             this.Controls.Add(this.textBox_tradePassword_buy);
             this.Controls.Add(this.button22);
@@ -1894,6 +1970,8 @@
             this.tabPage5.PerformLayout();
             this.tabPage6.ResumeLayout(false);
             this.tabPage6.PerformLayout();
+            this.groupBox2.ResumeLayout(false);
+            this.groupBox2.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -2056,6 +2134,13 @@
         private System.Windows.Forms.Label label36;
         private System.Windows.Forms.TextBox textBox_tradePassword_buy;
         private System.Windows.Forms.TextBox textBox_tradePassword_sell;
+        private System.Windows.Forms.RichTextBox RichTxtLog;
+        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.Label label50;
+        private System.Windows.Forms.Label LblSellCount;
+        private System.Windows.Forms.Label LblBuyCount;
+        private System.Windows.Forms.Label label49;
+        private System.Windows.Forms.NotifyIcon NotfCoin;
     }
 }
 

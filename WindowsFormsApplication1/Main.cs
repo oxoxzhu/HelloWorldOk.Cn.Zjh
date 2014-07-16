@@ -19,15 +19,15 @@ using System.Threading;
 
 namespace WindowsFormsApplication1
 {
-    
+
     public partial class Main : Form
     {
 
         private Double ReckonBuyCny = 0;
         private Double ReckonBuyCoin = 0;
-        
+
         private Double ReckonBuyCnyAll = 0;
-        
+
         private Double TempBuyOrSellPrice = 0;
 
         //---------------------------------
@@ -40,11 +40,11 @@ namespace WindowsFormsApplication1
         private List<Label> CBPList = new List<Label>();
         private List<Label> CBNList = new List<Label>();
         private List<Price> PriceList = new List<Price>();
-        
+
         private String Title = "";
-        
+
         private int islogin = 0;
-        
+
         private string LastTime = "";
 
         private IDictionary<int, Consign> BuyWaitList = new Dictionary<int, Consign>();
@@ -100,8 +100,8 @@ namespace WindowsFormsApplication1
 
                 label20.Text = "BTC余额：";
                 label25.Text = "BTC卖出：";
-                
-            } 
+
+            }
             else
             {
                 label23.Text = "LTC买入：";
@@ -170,12 +170,13 @@ namespace WindowsFormsApplication1
 
         private void Form1_Load(object sender, EventArgs e)
         {
-
+            wirteToLog = new WriteLog(RichTxtLog);
+            Define.TitleBase +="计算比率是: "+ MachineData.RiseRate;
             //String fdsa = Cookie.GetCookies(Define.Domain);
             //MessageBox.Show(fdsa);
 
             Data.init();
-            
+
             Login login = new Login();  //新建一个NewForm窗口(NewForm是自己定义的Form)
             login.ShowDialog();         //新窗口显现
 
@@ -193,7 +194,7 @@ namespace WindowsFormsApplication1
 
             CreateColumnHeader(listView_Order);
             CreateColumnHeader(listView_Completed);
-            
+
 
             ColumnHeader BTCc1 = new ColumnHeader();
             BTCc1.Text = "比特币BTC预警";
@@ -217,10 +218,10 @@ namespace WindowsFormsApplication1
             {
                 mac += netWork.GetPhysicalAddress().ToString();
             }
-            
+
             timer.Interval = 1000;
             timer.Enabled = true;
-            
+
             timerWarnPlay.Interval = 60000;
             timerWarnPlay.Enabled = false;
 
@@ -242,7 +243,7 @@ namespace WindowsFormsApplication1
             lab_alert.Text = "";
             lab_sell_alert.Text = "";
 
-            cur_BTCorLTC(0);
+            cur_BTCorLTC(1);
 
             CSPList.Add(CSP5);
             CSPList.Add(CSP4);
@@ -276,10 +277,10 @@ namespace WindowsFormsApplication1
 
             ThreadEx threadex2 = new ThreadEx();
             threadex2.Start(new ThreadStart(threadex2.GetUserConfig), new EventHandler(GetUserConfig), this);
-            
 
 
-            
+
+
         }
 
         private void CreateColumnHeader(ListView listview)
@@ -321,6 +322,11 @@ namespace WindowsFormsApplication1
 
         private void Form1_SizeChanged(object sender, EventArgs e)
         {
+            if (this.WindowState == FormWindowState.Minimized)  //判断是否最小化
+            {
+                this.ShowInTaskbar = false;  //不显示在系统任务栏
+                NotfCoin.Visible = true;  //托盘图标可见
+            }
             /*
             webBrowser1.Width = this.Width - 450;
             webBrowser1.Height = this.Height - 100;
@@ -344,18 +350,18 @@ namespace WindowsFormsApplication1
         private void showsellconsign()
         {
             int index = 0;
-            lock(Data.SellDepthList)
+            lock (Data.SellDepthList)
             {
-                for (int i = Data.SellDepthList.Count-1; i > 0; i--)
+                for (int i = Data.SellDepthList.Count - 1; i > 0; i--)
                 {
-                
+
                     if (index >= 5)
                     {
                         return;
                     }
                     Consign consign = Data.SellDepthList[i];
-                    CSPList[5-index-1].Text = consign.rate.ToString();
-                    CSNList[5-index-1].Text = consign.amount.ToString();
+                    CSPList[5 - index - 1].Text = consign.rate.ToString();
+                    CSNList[5 - index - 1].Text = consign.amount.ToString();
                     index++;
                 }
             }
@@ -381,7 +387,7 @@ namespace WindowsFormsApplication1
             lab_alert.Text = "";
             lab_alert.Text = doBuy(Define.trade_symbol_cur, Define.trade_type_buy, txt_tradeCnyPrice.Text, txt_tradeAmount.Text, textBox_tradePassword_buy.Text);
             timer_alert.Enabled = true;
-            
+
         }
 
         private String doBuy(String trade_symbol, String trade_type, String rate, String amount, String tradePwd)
@@ -492,14 +498,14 @@ namespace WindowsFormsApplication1
                     Define.tradePasswordEnabled = "";
                     Define.TradeLasterrorCode = "";
                     return "下单成功！";
-                } 
+                }
                 else
                 {
-                    if(Define.TradeLasterrorCode == "10217")
+                    if (Define.TradeLasterrorCode == "10217")
                     {
                         GetUserConfig(null, null);
                     }
-                    
+
                     if (Define.TradeErrorNum != "")
                     {
                         if (Define.TradeErrorNum == "0")
@@ -512,14 +518,14 @@ namespace WindowsFormsApplication1
                         }
                         else
                         {
-                            errorstr = "交易密码输入错误，还剩下" + Define.TradeErrorNum  + "次机会。";
+                            errorstr = "交易密码输入错误，还剩下" + Define.TradeErrorNum + "次机会。";
                             label35.Visible = true;
                             textBox_tradePassword_buy.Visible = true;
                             label36.Visible = true;
                             textBox_tradePassword_sell.Visible = true;
                         }
 
-                        
+
                     }
                     else
                     {
@@ -528,7 +534,7 @@ namespace WindowsFormsApplication1
                     return errorstr;
                 }
 
-                
+
             }
             catch (System.Exception ex)
             {
@@ -599,7 +605,7 @@ namespace WindowsFormsApplication1
             {
                 ReckonBuyCny = get_input_RMB(Define.trade_type_buy, txt_tradeCnyPrice.Text, txt_tradeAmount.Text);
             }
-            txt_txt_tradeAmount.Text = ReckonBuyCny.ToString();            
+            txt_txt_tradeAmount.Text = ReckonBuyCny.ToString();
         }
 
 
@@ -615,7 +621,7 @@ namespace WindowsFormsApplication1
 
             if (tempReckonCny == 0)
             {
-                int fdsa  = 0 ;
+                int fdsa = 0;
             }
 
             if (Define.trade_type_buy == trade_type)
@@ -670,7 +676,7 @@ namespace WindowsFormsApplication1
         }
         private void button11_Click(object sender, EventArgs e)
         {
-            lock(Data.SellDepthList)
+            lock (Data.SellDepthList)
             {
                 txt_tradeCnyPrice.Text = CSP1.Text;
             }
@@ -717,7 +723,7 @@ namespace WindowsFormsApplication1
         {
             Double neednum = 0;
             //Double price = (Double)Convert.ChangeType(txt_Sell_tradeCnyPrice.Text, typeof(Double));
-            
+
             lock (Data.free)
             {
                 neednum = Data.free["cur_coin_num"] * num;
@@ -762,11 +768,11 @@ namespace WindowsFormsApplication1
 
             ThreadEx threadex = new ThreadEx();
             threadex.Start(new ThreadStart(threadex.GetUserInfo), new EventHandler(GetUserInfo), this);
-                   
+
             ThreadEx threadex2 = new ThreadEx();
             threadex2.Start(new ThreadStart(threadex2.GetTickerinfo), new EventHandler(GetTickerinfo), this);
 
-            
+
         }
 
 
@@ -823,7 +829,7 @@ namespace WindowsFormsApplication1
 
         private void GetTickerinfo(Object o, EventArgs e)//各网站行情信息:
         {
-            
+
             if (Data.GetTickerinfoResult == Define.Login_Succeed)
             {
                 try
@@ -840,9 +846,9 @@ namespace WindowsFormsApplication1
                     lab_last_ltc.Text = Data.ltclast.ToString("0.000000").TrimEnd('0').TrimEnd('.');
 
                     String Title = Define.TitleBase + ",　　最新价:　　BTC" + Data.btclast + "　　LTC" + Data.ltclast;
-                    
+
                     this.Text = Title;
-                    
+
 
                 }
                 catch (System.Exception ex)
@@ -899,25 +905,152 @@ namespace WindowsFormsApplication1
             }
         }
 
+        private WriteLog wirteToLog = null;
 
         private void GetReckonBuy()
         {
-            try
+            //try
+            //{
+            lock (Data.free)
             {
-                lock (Data.free)
+                lab_ReckonBuy.Text = (Data.free["cny"] / Data.curlast).ToString("0.000").TrimEnd('0').TrimEnd('.');
+                lab_ReckonSell.Text = (Data.free["cur_coin_num"] * Data.curlast).ToString("0.000").TrimEnd('0').TrimEnd('.');
+                label_curlast.Text = Data.curlast.ToString("0.000000").TrimEnd('0').TrimEnd('.');
+                //这里开始重头戏
+
+                //TODO:对冻结资金进行一定的监控
+
+                //手里拿的是币，要卖掉
+                double realBuyPrice = GetRealBuyPrice(MachineData.OptNum);
+                //手里拿的是钱，要买币
+                double realSellPrice = GetRealSellPrice(MachineData.OptNum);
+
+                if (realBuyPrice <= 0 || realSellPrice <= 0) return;
+
+                //计算上升和下降比例
+                double rateRise = (realBuyPrice - MachineData.PriceStart) / MachineData.PriceStart;
+                double rateHFall = (MachineData.PriceStart - realSellPrice) / MachineData.PriceStart;
+
+                //显示下数据
+                //wirteToLog.LogAppendMsg("当前价格-->" + Data.curlast + "--上升比例-->" + rateRise + "--下降比例-->" + rateHFall+"--购买次数:"+MachineData.BuyCount+"--出售次数"+MachineData.SellCount);
+                //wirteToLog.LogAppendMsg("当前价格");
+
+                if ((rateRise < MachineData.RiseRate && rateRise >= 0) && (rateHFall < MachineData.FallRate && rateHFall >= 0))
                 {
-                    lab_ReckonBuy.Text = (Data.free["cny"] / Data.curlast).ToString("0.000").TrimEnd('0').TrimEnd('.');
-                    lab_ReckonSell.Text = (Data.free["cur_coin_num"] * Data.curlast).ToString("0.000").TrimEnd('0').TrimEnd('.');
-                    label_curlast.Text = Data.curlast.ToString("0.000000").TrimEnd('0').TrimEnd('.');
-                    //这里开始重头戏
+                    //上涨利润太小,下跌利润太小   退出，继续找
+                    return;
                 }
 
+                //进行挂卖单
+                if (rateRise >= MachineData.RiseRate)
+                {
+                    //有利可图，查看是否有卖出杠杆
+                    if (MachineData.IsCanSell())
+                    {
+                        //TODO:进行卖
+                        int problem = StartSell(realBuyPrice, MachineData.OptNum);
 
+                        //TODO:显示下交易过程
+                        MachineData.CalMaxDiff();
+                        wirteToLog.LogAppendMsg("当前价格-->" + Data.curlast + "--进行卖出--购买次数:" + MachineData.BuyCount + "--出售次数" + MachineData.SellCount + "--最大差距-->" + MachineData.DiffBuySell);
+
+                        //如果没有冻结资金，买卖操作成功
+                        MachineData.PriceStart = realBuyPrice;
+
+                        //刷新监视价格
+                    }
+                }
+
+                //下降空间达到要求
+                //进行挂买单
+                if (rateHFall >= MachineData.FallRate)
+                {
+                    if (MachineData.IsCanBuy())
+                    {
+                        //TODO:进行买
+                        int problem = StartBuy(realSellPrice, MachineData.OptNum);
+
+                        MachineData.CalMaxDiff();
+                        //如果没有冻结资金，买卖操作成功
+                        MachineData.PriceStart = realSellPrice;
+
+                        wirteToLog.LogAppendMsg("当前价格-->" + Data.curlast + "--进行购买--购买次数:" + MachineData.BuyCount + "--出售次数" + MachineData.SellCount + "--最大差距-->" + MachineData.DiffBuySell);
+                    }
+                }
             }
-            catch (System.Exception ex)
+
+
+            //}
+            //catch (System.Exception ex)
+            //{
+            //}
+        }
+        /// <summary>
+        /// 通过数量算出实际卖出的价格线
+        /// </summary>
+        /// <param name="optNum"></param>
+        /// <returns></returns>
+        private double GetRealBuyPrice(double optNum)
+        {
+            if (Data.BuyDepthList.Count <= 0)
             {
+                return 0;
+            }
+            else
+            {
+                return Convert.ToDouble(Data.BuyDepthList[0].rate);
             }
         }
+        /// <summary>
+        /// 通过数量算出实际买入的价格线
+        /// </summary>
+        /// <param name="optNum"></param>
+        /// <returns></returns>
+        private double GetRealSellPrice(double optNum)
+        {
+            if (Data.SellDepthList.Count <= 0)
+            {
+                return 0;
+            }
+            else
+            {
+                double price = 0;
+                try
+                {
+                    price = Convert.ToDouble(Data.SellDepthList[Data.SellDepthList.Count - 1].rate);
+                }
+                catch (Exception)
+                {
+                    price = 0;
+                }
+                return price;
+            }
+        }
+
+        /// <summary>
+        /// 挂单进行卖操作
+        /// </summary>
+        /// <param name="realPrice">价格</param>
+        /// <param name="optNum">数量</param>
+        /// <returns>返回结果</returns>
+        private int StartSell(double realPrice, double optNum)
+        {
+            MachineData.SellCount++;
+            return 1;
+        }
+
+        /// <summary>
+        /// 挂单进行买操作
+        /// </summary>
+        /// <param name="realPrice">价格</param>
+        /// <param name="optNum">数量</param>
+        /// <returns>返回结果</returns>
+        private int StartBuy(double realPrice, double optNum)
+        {
+            MachineData.BuyCount++;
+            return 1;
+        }
+
 
         private void Show_track_change(TextBox _tradeCnyPrice, TrackBar _track_change, int SmallChane)
         {
@@ -1003,13 +1136,13 @@ namespace WindowsFormsApplication1
                 {
                     return;
                 }
-                txt_Sell_tradeCnyPrice.Text = CBP5.Text;                
+                txt_Sell_tradeCnyPrice.Text = CBP5.Text;
             }
         }
 
         private void button15_Click(object sender, EventArgs e)
         {
-            lock(Data.SellDepthList)
+            lock (Data.SellDepthList)
             {
                 if (Data.SellDepthList.Count() < 5)
                 {
@@ -1252,7 +1385,7 @@ namespace WindowsFormsApplication1
 
         private void button19_Click(object sender, EventArgs e)
         {
-            lock(Data.SellDepthList)
+            lock (Data.SellDepthList)
             {
                 txt_tradeCnyPrice.Text = CSP5.Text;
             }
@@ -1274,7 +1407,7 @@ namespace WindowsFormsApplication1
             {
                 curlistwiew = listViewLTC;
             }
-               
+
             if (curlistwiew == null)
             {
                 return;
@@ -1307,7 +1440,7 @@ namespace WindowsFormsApplication1
                 form2.ShowDialog(); //新窗口显现
                 warn_to_list(0);
                 warn_to_list(1);
-            } 
+            }
             else
             {
                 MessageBox.Show(this, "请选择将要修改的预警！", "提示", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
@@ -1327,7 +1460,7 @@ namespace WindowsFormsApplication1
             form2.command_cointype(cointype);
             form2.ShowDialog(); //新窗口显现
             warn_to_list(0);
-            warn_to_list(1);           
+            warn_to_list(1);
         }
 
         private void DoWarn(int cointype)
@@ -1343,7 +1476,7 @@ namespace WindowsFormsApplication1
             {
                 curPrice = Data.ltclast;
             }
-                        
+
             List<Warn> warnlistcur = WarnManagement.Instance().get_warnlist(cointype);
             for (int i = 0; i < warnlistcur.Count; i++)
             {
@@ -1491,11 +1624,11 @@ namespace WindowsFormsApplication1
 
         private void DeleteWarn(int cointype)
         {
-            
+
             if (cointype == 0)
             {
                 curlistwiew = listViewBTC;
-            } 
+            }
             else
             {
                 curlistwiew = listViewLTC;
@@ -1535,7 +1668,7 @@ namespace WindowsFormsApplication1
                 {
                     return;
                 }
-                
+
                 WarnManagement.Instance().set_cur_warnlist(BTCorLTC);
                 WarnManagement.Instance().delete_Warn(index);
 
@@ -1556,7 +1689,7 @@ namespace WindowsFormsApplication1
         private void listView_BuyWait_MouseDoubleClick(object sender, MouseEventArgs e)
         {
             ListView.SelectedListViewItemCollection items = listView_Order.SelectedItems;
-            
+
             foreach (ListViewItem item in items)
             {
                 CancelOrderParm cancelorderparm = new CancelOrderParm();
@@ -1565,7 +1698,7 @@ namespace WindowsFormsApplication1
 
                 ThreadEx threadex = new ThreadEx();
                 threadex.Start(new ParameterizedThreadStart(threadex.GetCancelOrder), (Object)cancelorderparm, new EventHandler(GetCancelOrder), this);
-                               
+
                 //GetTradeList(BuyOrSell.ENTRUST,ConsignState.WAIT, webBrowser3.Document, item.Index);
             }
             OnOrder();
@@ -1609,7 +1742,12 @@ namespace WindowsFormsApplication1
 
         private void GetDepth(Object o, EventArgs e)
         {
-
+            if (Data.GetDepthResult == 0)
+            {
+                //Protocol.GetDepth();
+                showsellconsign();
+                showbuyconsign();
+            }
         }
 
 
@@ -1667,48 +1805,60 @@ namespace WindowsFormsApplication1
         }
 
 
+        private void GetOrderHistory(Object o, EventArgs e)
+        {
+
+            if (Data.GetOrderHistoryResult == Define.Login_Succeed)
+            {
+                lock (Data.OrderList)
+                {
+                    ShowList(listView_Completed, Data.OrderHistoryList);
+                }
+            }
+        }
+
 
         private void ShowList(ListView listview, List<Consign> ListData)
         {
 
-                listview.Items.Clear();
+            listview.Items.Clear();
 
-                int fdsaf = ListData.Count;
-                for (int i = 0; i < ListData.Count; i++)
-                {
+            int fdsaf = ListData.Count;
+            for (int i = 0; i < ListData.Count; i++)
+            {
 
-                    Consign consign = ListData[i];
+                Consign consign = ListData[i];
 
-                    string[] dataset = new string[9];
-
-
-                    Double amount = (Double)Convert.ChangeType(consign.amount, typeof(Double));
-                    Double deal_amount = (Double)Convert.ChangeType(consign.deal_amount, typeof(Double));
-
-                    Double remain = amount - deal_amount;
-
-                    dataset[0] = Des.getTimeString(consign.createDate);
-                    dataset[1] = Define.getTradeTypeString(consign.type);
-                    dataset[2] = consign.amount;
-                    dataset[3] = consign.rate;
-                    dataset[4] = consign.deal_amount;
-                    dataset[5] = consign.avg_rate;
-                    dataset[6] = remain.ToString();
-                    dataset[7] = Define.getTradeStatusString(consign.status);
-                    dataset[8] = consign.orders_id;
+                string[] dataset = new string[9];
 
 
-                    ListViewItem lvi = new ListViewItem(dataset, -1);
-                    FontFamily fontFamily = new FontFamily("Arial");
-                    Font font = new Font(fontFamily, 14, FontStyle.Regular, GraphicsUnit.Pixel);
-                    lvi.ForeColor = Color.FromName("#FF9900");
-                    lvi.Font = font;
-                    ImageList imgList = new ImageList();
-                    imgList.ImageSize = new Size(1, 16);    //分别是宽和高
-                    listview.SmallImageList = imgList;      //这里设置listView的SmallImageList ,用imgList将其撑大
-                    listview.Items.Add(lvi);
-                }
-            
+                Double amount = (Double)Convert.ChangeType(consign.amount, typeof(Double));
+                Double deal_amount = (Double)Convert.ChangeType(consign.deal_amount, typeof(Double));
+
+                Double remain = amount - deal_amount;
+
+                dataset[0] = Des.getTimeString(consign.createDate);
+                dataset[1] = Define.getTradeTypeString(consign.type);
+                dataset[2] = consign.amount;
+                dataset[3] = consign.rate;
+                dataset[4] = consign.deal_amount;
+                dataset[5] = consign.avg_rate;
+                dataset[6] = remain.ToString();
+                dataset[7] = Define.getTradeStatusString(consign.status);
+                dataset[8] = consign.orders_id;
+
+
+                ListViewItem lvi = new ListViewItem(dataset, -1);
+                FontFamily fontFamily = new FontFamily("Arial");
+                Font font = new Font(fontFamily, 14, FontStyle.Regular, GraphicsUnit.Pixel);
+                lvi.ForeColor = Color.FromName("#FF9900");
+                lvi.Font = font;
+                ImageList imgList = new ImageList();
+                imgList.ImageSize = new Size(1, 16);    //分别是宽和高
+                listview.SmallImageList = imgList;      //这里设置listView的SmallImageList ,用imgList将其撑大
+                listview.Items.Add(lvi);
+            }
+
         }
 
         private void label43_Click(object sender, EventArgs e)
@@ -1828,13 +1978,13 @@ namespace WindowsFormsApplication1
             {
                 button35.Enabled = true;
                 button36.Enabled = true;
-            } 
+            }
             else
             {
                 //button35.Enabled = false;
                 //button36.Enabled = false;
             }
-            
+
         }
 
         private void listViewLTC_SelectedIndexChanged_1(object sender, EventArgs e)
@@ -1890,11 +2040,11 @@ namespace WindowsFormsApplication1
         private void timer_FlashWindow_Tick(object sender, EventArgs e)
         {
             FlashWindowCount++;
-            if(FlashWindowCount >= 6)
+            if (FlashWindowCount >= 6)
             {
                 timer_FlashWindow.Enabled = false;
                 FlashWindowCount = 0;
-                return ;
+                return;
             }
             FlashWindow(this.Handle, true);//闪烁 
         }
@@ -1917,9 +2067,16 @@ namespace WindowsFormsApplication1
             }
         }
 
+        private void NotfCoin_DoubleClick(object sender, EventArgs e)
+        {
+            this.ShowInTaskbar = true;  //显示在系统任务栏
+            this.WindowState = FormWindowState.Normal;  //还原窗体
+            NotfCoin.Visible = false;  //托盘图标隐藏
+        }
 
 
-        
+
+
     }
 
     public partial class Price

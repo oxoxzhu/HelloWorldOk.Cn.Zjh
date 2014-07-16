@@ -55,7 +55,7 @@ namespace WindowsFormsApplication1
 
 
         public static String Version = "3.3";
-        public static String TitleBase = "小股仙交易客户端OKCoin官方认证版" + Version;
+        public static String TitleBase = "小z的玩具-";
 
 
         public static String TradeLasterrorCode = "";

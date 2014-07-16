@@ -29,6 +29,7 @@ namespace WindowsFormsApplication1
 
         private void button1_Click(object sender, EventArgs e)
         {
+            Define.TitleBase += "帐号-"+txt_Username.Text;
             OnLogin();
         }
 
