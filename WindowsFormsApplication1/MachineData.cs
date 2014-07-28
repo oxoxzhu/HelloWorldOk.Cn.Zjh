@@ -44,6 +44,8 @@ namespace WindowsFormsApplication1
         public static double SellCount = 0;
         public static double DiffBuySell = 0;
 
+        public static string DealPwd = "zhu.2154967";
+
         public static bool IsCanBuy()
         {
             if (DGangGan < GangGan)

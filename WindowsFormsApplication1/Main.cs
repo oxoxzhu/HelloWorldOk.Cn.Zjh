@@ -171,7 +171,7 @@ namespace WindowsFormsApplication1
         private void Form1_Load(object sender, EventArgs e)
         {
             wirteToLog = new WriteLog(RichTxtLog);
-            Define.TitleBase +="计算比率是: "+ MachineData.RiseRate;
+            Define.TitleBase += "计算比率是: " + MachineData.RiseRate;
             //String fdsa = Cookie.GetCookies(Define.Domain);
             //MessageBox.Show(fdsa);
 
@@ -370,6 +370,10 @@ namespace WindowsFormsApplication1
 
         private void showbuyconsign()
         {
+            if (Data.BuyDepthList == null || Data.BuyDepthList.Count <= 0)
+            {
+                return;
+            }
             for (int i = 0; i < Data.BuyDepthList.Count; i++)
             {
                 if (i >= 5)
@@ -390,6 +394,15 @@ namespace WindowsFormsApplication1
 
         }
 
+        /// <summary>
+        /// 进行挂单买入
+        /// </summary>
+        /// <param name="trade_symbol">Define.trade_symbol_cur</param>
+        /// <param name="trade_type">Define.trade_type_buy</param>
+        /// <param name="rate">出价，价格</param>
+        /// <param name="amount">数量</param>
+        /// <param name="tradePwd">交易密码</param>
+        /// <returns></returns>
         private String doBuy(String trade_symbol, String trade_type, String rate, String amount, String tradePwd)
         {
             return Submit(trade_symbol, trade_type, rate, amount, tradePwd);
@@ -401,6 +414,15 @@ namespace WindowsFormsApplication1
             lab_sell_alert.Text = doSell(Define.trade_symbol_cur, Define.trade_type_sell, txt_Sell_tradeCnyPrice.Text, txt_Sell_tradeAmount.Text, textBox_tradePassword_sell.Text);
         }
 
+        /// <summary>
+        /// 进行挂单买入
+        /// </summary>
+        /// <param name="trade_symbol">Define.trade_symbol_cur</param>
+        /// <param name="trade_type">Define.trade_type_sell</param>
+        /// <param name="rate">出价，价格</param>
+        /// <param name="amount">数量</param>
+        /// <param name="tradePwd">交易密码</param>
+        /// <returns></returns>
         private String doSell(String trade_symbol, String trade_type, String rate, String amount, String tradePwd)
         {
             return Submit(trade_symbol, trade_type, rate, amount, tradePwd);
@@ -446,51 +468,8 @@ namespace WindowsFormsApplication1
                 }
             }
 
-
-            if (trade_type == Define.trade_type_buy)
-            {
-                //NeedMoneyNumRMB = (Double)Convert.ChangeType(txt_txt_tradeAmount.Text, typeof(Double));
-                lock (Data.free)
-                {
-                    if (ReckonBuyCny > Data.free["cny"])
-                    {
-                        String alerttext = "所需要金额超出总资金量!";
-                        alert(Define.trade_type_buy, alerttext);
-
-                        return "所需要金额超出总资金量!";
-                    }
-                }
-
-            }
-            else
-            {
-                ReckonBuyCoin = (Double)Convert.ChangeType(amount, typeof(Double));
-                lock (Data.free)
-                {
-                    if (ReckonBuyCoin > Data.free["cur_coin_num"])
-                    {
-                        String alerttext = "所需要出售的币超出币的总量!";
-                        alert(trade_type, alerttext);
-
-                        return "所需要出售的币超出币的总量!";
-                    }
-                }
-            }
-
-
-            textBox_tradePassword_buy.Text = "";
-            textBox_tradePassword_sell.Text = "";
-
             try
             {
-
-
-                label35.Visible = false;
-                textBox_tradePassword_buy.Visible = false;
-                label36.Visible = false;
-                textBox_tradePassword_sell.Visible = false;
-
-
                 int result = Protocol.DoTrade(trade_symbol, trade_type, rate, amount, tradePwd);
                 if (result == Define.Trade_Succeed)
                 {
@@ -511,20 +490,11 @@ namespace WindowsFormsApplication1
                         if (Define.TradeErrorNum == "0")
                         {
                             errorstr = "交易密码输入错误多次，请2小时后再试。";
-                            label35.Visible = false;
-                            textBox_tradePassword_buy.Visible = false;
-                            label36.Visible = false;
-                            textBox_tradePassword_sell.Visible = false;
                         }
                         else
                         {
                             errorstr = "交易密码输入错误，还剩下" + Define.TradeErrorNum + "次机会。";
-                            label35.Visible = true;
-                            textBox_tradePassword_buy.Visible = true;
-                            label36.Visible = true;
-                            textBox_tradePassword_sell.Visible = true;
                         }
-
 
                     }
                     else
@@ -769,6 +739,8 @@ namespace WindowsFormsApplication1
             ThreadEx threadex = new ThreadEx();
             threadex.Start(new ThreadStart(threadex.GetUserInfo), new EventHandler(GetUserInfo), this);
 
+            //Thread.Sleep(6000);
+
             ThreadEx threadex2 = new ThreadEx();
             threadex2.Start(new ThreadStart(threadex2.GetTickerinfo), new EventHandler(GetTickerinfo), this);
 
@@ -819,7 +791,7 @@ namespace WindowsFormsApplication1
                 }
 
             }
-            GetReckonBuy();
+            //GetReckonBuy();
         }
 
 
@@ -913,16 +885,16 @@ namespace WindowsFormsApplication1
             //{
             lock (Data.free)
             {
-                lab_ReckonBuy.Text = (Data.free["cny"] / Data.curlast).ToString("0.000").TrimEnd('0').TrimEnd('.');
-                lab_ReckonSell.Text = (Data.free["cur_coin_num"] * Data.curlast).ToString("0.000").TrimEnd('0').TrimEnd('.');
-                label_curlast.Text = Data.curlast.ToString("0.000000").TrimEnd('0').TrimEnd('.');
+                //lab_ReckonBuy.Text = (Data.free["cny"] / Data.curlast).ToString("0.000").TrimEnd('0').TrimEnd('.');
+                //lab_ReckonSell.Text = (Data.free["cur_coin_num"] * Data.curlast).ToString("0.000").TrimEnd('0').TrimEnd('.');
+                //label_curlast.Text = Data.curlast.ToString("0.000000").TrimEnd('0').TrimEnd('.');
                 //这里开始重头戏
 
                 //TODO:对冻结资金进行一定的监控
 
-                //手里拿的是币，要卖掉
+                //手里拿的是币，要卖掉，买一价这些计算
                 double realBuyPrice = GetRealBuyPrice(MachineData.OptNum);
-                //手里拿的是钱，要买币
+                //手里拿的是钱，要买币，卖一价这些计算
                 double realSellPrice = GetRealSellPrice(MachineData.OptNum);
 
                 if (realBuyPrice <= 0 || realSellPrice <= 0) return;
@@ -931,9 +903,8 @@ namespace WindowsFormsApplication1
                 double rateRise = (realBuyPrice - MachineData.PriceStart) / MachineData.PriceStart;
                 double rateHFall = (MachineData.PriceStart - realSellPrice) / MachineData.PriceStart;
 
-                //显示下数据
-                //wirteToLog.LogAppendMsg("当前价格-->" + Data.curlast + "--上升比例-->" + rateRise + "--下降比例-->" + rateHFall+"--购买次数:"+MachineData.BuyCount+"--出售次数"+MachineData.SellCount);
-                //wirteToLog.LogAppendMsg("当前价格");
+                LblBuyRate.Text = rateRise.ToString();
+                LblSellRate.Text = rateHFall.ToString();
 
                 if ((rateRise < MachineData.RiseRate && rateRise >= 0) && (rateHFall < MachineData.FallRate && rateHFall >= 0))
                 {
@@ -944,38 +915,82 @@ namespace WindowsFormsApplication1
                 //进行挂卖单
                 if (rateRise >= MachineData.RiseRate)
                 {
-                    //有利可图，查看是否有卖出杠杆
-                    if (MachineData.IsCanSell())
+
+                    //进行卖之前先判断有币，如果超过饱和则再计算是否符合买入操作
+                    bool hasEnoughCoins = true;
+                    lock (Data.free)
                     {
-                        //TODO:进行卖
-                        int problem = StartSell(realBuyPrice, MachineData.OptNum);
+                        if (MachineData.OptNum > Data.free["cur_coin_num"])
+                        {
+                            //不好意思没有币卖了
+                            hasEnoughCoins = false;
+                        }
 
-                        //TODO:显示下交易过程
-                        MachineData.CalMaxDiff();
-                        wirteToLog.LogAppendMsg("当前价格-->" + Data.curlast + "--进行卖出--购买次数:" + MachineData.BuyCount + "--出售次数" + MachineData.SellCount + "--最大差距-->" + MachineData.DiffBuySell);
-
-                        //如果没有冻结资金，买卖操作成功
-                        MachineData.PriceStart = realBuyPrice;
-
-                        //刷新监视价格
                     }
+
+                    //如果有币则进行卖出操作
+                    if (hasEnoughCoins)
+                    {
+                        wirteToLog.LogAppendMsg("准备卖出当前价格-->" + Data.curlast+"上升率-->"+rateRise+"下降率-->"+rateHFall+"参考价格-->"+MachineData.PriceStart);
+                        StartSell(realBuyPrice);
+                        MachineData.PriceStart = realBuyPrice;
+                    }
+                    else
+                    {
+                        //考虑是否可以买一些币
+                        if (-rateHFall >= MachineData.RiseRate)
+                        {
+                            //买入一些币
+                            wirteToLog.LogAppendMsg("准备买入当前价格-->" + Data.curlast + "--超限买入--" + "上升率-->" + rateRise + "下降率-->" + rateHFall + "参考价格-->" + MachineData.PriceStart);
+                            StartBuy(realSellPrice);
+                            MachineData.PriceStart = realSellPrice;
+                        }
+                    }
+
+                    //如果没有冻结资金，买卖操作成功
+                    
                 }
 
                 //下降空间达到要求
                 //进行挂买单
                 if (rateHFall >= MachineData.FallRate)
                 {
-                    if (MachineData.IsCanBuy())
+                    //ReckonBuyCny = get_input_RMB(Define.trade_type_buy, , txt_tradeAmount.Text);
+                    bool hasEnoughMoney = true;
+                    lock (Data.free)
                     {
-                        //TODO:进行买
-                        int problem = StartBuy(realSellPrice, MachineData.OptNum);
+                        if (realSellPrice * MachineData.OptNum > Data.free["cny"])
+                        {
+                            //不好意思钱不够
+                            hasEnoughMoney = false;
+                        }
+                    }
 
-                        MachineData.CalMaxDiff();
+                    //进行买
+                    if (hasEnoughMoney)
+                    {
+                        //有钱就买
+                        //买入一些币
+                        wirteToLog.LogAppendMsg("准备买入当前价格-->" + Data.curlast + "上升率-->" + rateRise + "下降率-->" + rateHFall + "参考价格-->" + MachineData.PriceStart);
+                        StartBuy(realSellPrice);
+
                         //如果没有冻结资金，买卖操作成功
                         MachineData.PriceStart = realSellPrice;
-
-                        wirteToLog.LogAppendMsg("当前价格-->" + Data.curlast + "--进行购买--购买次数:" + MachineData.BuyCount + "--出售次数" + MachineData.SellCount + "--最大差距-->" + MachineData.DiffBuySell);
                     }
+                    else
+                    {
+                        //没钱就考虑卖
+                        if (-rateRise >= MachineData.FallRate)
+                        {
+                            //卖出一些币吧
+                            wirteToLog.LogAppendMsg("准备卖出当前价格-->" + Data.curlast + "--超限卖出--" + "上升率-->" + rateRise + "下降率-->" + rateHFall + "参考价格-->" + MachineData.PriceStart);
+                            StartSell(realBuyPrice);
+
+                            //如果没有冻结资金，买卖操作成功
+                            MachineData.PriceStart = realBuyPrice;
+                        }
+                    }
+
                 }
             }
 
@@ -992,14 +1007,37 @@ namespace WindowsFormsApplication1
         /// <returns></returns>
         private double GetRealBuyPrice(double optNum)
         {
-            if (Data.BuyDepthList.Count <= 0)
+            lock (Data.BuyDepthList)
             {
-                return 0;
+                if (Data.BuyDepthList.Count <= 0)
+                {
+                    return 0;
+                }
+                else
+                {
+                    double price = 0;
+                    double sum = 0;
+                    try
+                    {
+                        for (int i = 0; i < Data.BuyDepthList.Count; i++)
+                        {
+                            sum += Convert.ToDouble(Data.BuyDepthList[i].amount);
+                            if (sum > optNum)
+                            {
+                                //符合数量要求，进行计算价格
+                                price = Convert.ToDouble(Data.BuyDepthList[i].rate);
+                                break;
+                            }
+                        }
+                    }
+                    catch (Exception)
+                    {
+                        price = 0;
+                    }
+                    return price;
+                }
             }
-            else
-            {
-                return Convert.ToDouble(Data.BuyDepthList[0].rate);
-            }
+
         }
         /// <summary>
         /// 通过数量算出实际买入的价格线
@@ -1008,22 +1046,34 @@ namespace WindowsFormsApplication1
         /// <returns></returns>
         private double GetRealSellPrice(double optNum)
         {
-            if (Data.SellDepthList.Count <= 0)
+            lock (Data.SellDepthList)
             {
-                return 0;
-            }
-            else
-            {
-                double price = 0;
-                try
+                if (Data.SellDepthList.Count <= 0)
                 {
-                    price = Convert.ToDouble(Data.SellDepthList[Data.SellDepthList.Count - 1].rate);
+                    return 0;
                 }
-                catch (Exception)
+                else
                 {
-                    price = 0;
+                    double price = 0;
+                    try
+                    {
+                        double sum = 0;
+                        for (int i = Data.SellDepthList.Count - 1; i >= 0; i--)
+                        {
+                            sum += Convert.ToDouble(Data.SellDepthList[i].amount);
+                            if (sum > optNum)
+                            {
+                                price = Convert.ToDouble(Data.SellDepthList[i].rate);
+                                break;
+                            }
+                        }
+                    }
+                    catch (Exception)
+                    {
+                        price = 0;
+                    }
+                    return price;
                 }
-                return price;
             }
         }
 
@@ -1031,26 +1081,57 @@ namespace WindowsFormsApplication1
         /// 挂单进行卖操作
         /// </summary>
         /// <param name="realPrice">价格</param>
-        /// <param name="optNum">数量</param>
         /// <returns>返回结果</returns>
-        private int StartSell(double realPrice, double optNum)
+        private int StartSell(double realPrice)
         {
-            MachineData.SellCount++;
-            return 1;
+            //进行卖出
+            string error = doSell(Define.trade_symbol_cur, Define.trade_type_sell, (realPrice - 0.02).ToString(), MachineData.OptNum.ToString(), MachineData.DealPwd);
+
+            if (error.Equals("下单成功！"))
+            {
+                MachineData.SellCount++;
+                //计算最大差比数
+                MachineData.CalMaxDiff();
+                wirteToLog.LogAppendMsg("当前价格-->" + Data.curlast + "--进行卖出--购买次数:" + MachineData.BuyCount + "--出售次数" + MachineData.SellCount + "--最大差距-->" + MachineData.DiffBuySell);
+
+                return 1;
+            }
+            else
+            {
+                wirteToLog.LogAppendMsg("交易错误：" + error);
+
+                return 0;
+            }
+
+
         }
 
         /// <summary>
         /// 挂单进行买操作
         /// </summary>
         /// <param name="realPrice">价格</param>
-        /// <param name="optNum">数量</param>
         /// <returns>返回结果</returns>
-        private int StartBuy(double realPrice, double optNum)
+        private int StartBuy(double realPrice)
         {
-            MachineData.BuyCount++;
-            return 1;
-        }
+            //进行买入
+            string error = doBuy(Define.trade_symbol_cur, Define.trade_type_buy, (realPrice + 0.02).ToString(), MachineData.OptNum.ToString(), MachineData.DealPwd);
 
+            if (error.Equals("下单成功！"))
+            {
+                MachineData.BuyCount++;
+                //计算最大差比数
+                MachineData.CalMaxDiff();
+                wirteToLog.LogAppendMsg("当前价格-->" + Data.curlast + "--进行买入--购买次数:" + MachineData.BuyCount + "--出售次数" + MachineData.SellCount + "--最大差距-->" + MachineData.DiffBuySell);
+
+                return 1;
+            }
+            else
+            {
+                wirteToLog.LogAppendMsg("交易错误：" + error);
+
+                return 0;
+            }
+        }
 
         private void Show_track_change(TextBox _tradeCnyPrice, TrackBar _track_change, int SmallChane)
         {
@@ -1061,11 +1142,7 @@ namespace WindowsFormsApplication1
             TempBuyOrSellPrice = (Double)Convert.ChangeType(_tradeCnyPrice.Text, typeof(Double));
             _track_change.SmallChange = SmallChane;
 
-
-
         }
-
-
 
         private void track_change_Scroll(object sender, EventArgs e)
         {
@@ -1087,8 +1164,6 @@ namespace WindowsFormsApplication1
             //MessageBox.Show(MoneyNumRMB.ToString());
             return needPrice;
         }
-
-
 
 
         private void txt_Sell_tradeAmount_TextChanged(object sender, EventArgs e)

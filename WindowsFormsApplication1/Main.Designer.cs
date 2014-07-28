@@ -188,8 +188,8 @@
             this.RichTxtLog = new System.Windows.Forms.RichTextBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.label50 = new System.Windows.Forms.Label();
-            this.LblSellCount = new System.Windows.Forms.Label();
-            this.LblBuyCount = new System.Windows.Forms.Label();
+            this.LblSellRate = new System.Windows.Forms.Label();
+            this.LblBuyRate = new System.Windows.Forms.Label();
             this.label49 = new System.Windows.Forms.Label();
             this.NotfCoin = new System.Windows.Forms.NotifyIcon(this.components);
             this.groupbox1.SuspendLayout();
@@ -802,7 +802,7 @@
             // 
             // timer
             // 
-            this.timer.Interval = 1000;
+            this.timer.Interval = 3000;
             this.timer.Tick += new System.EventHandler(this.timer1_Tick);
             // 
             // label5
@@ -1794,8 +1794,8 @@
             // groupBox2
             // 
             this.groupBox2.Controls.Add(this.label50);
-            this.groupBox2.Controls.Add(this.LblSellCount);
-            this.groupBox2.Controls.Add(this.LblBuyCount);
+            this.groupBox2.Controls.Add(this.LblSellRate);
+            this.groupBox2.Controls.Add(this.LblBuyRate);
             this.groupBox2.Controls.Add(this.label49);
             this.groupBox2.Location = new System.Drawing.Point(304, 367);
             this.groupBox2.Name = "groupBox2";
@@ -1809,36 +1809,36 @@
             this.label50.AutoSize = true;
             this.label50.Location = new System.Drawing.Point(28, 57);
             this.label50.Name = "label50";
-            this.label50.Size = new System.Drawing.Size(65, 12);
+            this.label50.Size = new System.Drawing.Size(53, 12);
             this.label50.TabIndex = 0;
-            this.label50.Text = "卖出次数 :";
+            this.label50.Text = "下降率 :";
             // 
-            // LblSellCount
+            // LblSellRate
             // 
-            this.LblSellCount.AutoSize = true;
-            this.LblSellCount.Location = new System.Drawing.Point(95, 57);
-            this.LblSellCount.Name = "LblSellCount";
-            this.LblSellCount.Size = new System.Drawing.Size(11, 12);
-            this.LblSellCount.TabIndex = 0;
-            this.LblSellCount.Text = "0";
+            this.LblSellRate.AutoSize = true;
+            this.LblSellRate.Location = new System.Drawing.Point(95, 57);
+            this.LblSellRate.Name = "LblSellRate";
+            this.LblSellRate.Size = new System.Drawing.Size(11, 12);
+            this.LblSellRate.TabIndex = 0;
+            this.LblSellRate.Text = "0";
             // 
-            // LblBuyCount
+            // LblBuyRate
             // 
-            this.LblBuyCount.AutoSize = true;
-            this.LblBuyCount.Location = new System.Drawing.Point(95, 26);
-            this.LblBuyCount.Name = "LblBuyCount";
-            this.LblBuyCount.Size = new System.Drawing.Size(11, 12);
-            this.LblBuyCount.TabIndex = 0;
-            this.LblBuyCount.Text = "0";
+            this.LblBuyRate.AutoSize = true;
+            this.LblBuyRate.Location = new System.Drawing.Point(95, 26);
+            this.LblBuyRate.Name = "LblBuyRate";
+            this.LblBuyRate.Size = new System.Drawing.Size(11, 12);
+            this.LblBuyRate.TabIndex = 0;
+            this.LblBuyRate.Text = "0";
             // 
             // label49
             // 
             this.label49.AutoSize = true;
             this.label49.Location = new System.Drawing.Point(28, 26);
             this.label49.Name = "label49";
-            this.label49.Size = new System.Drawing.Size(65, 12);
+            this.label49.Size = new System.Drawing.Size(53, 12);
             this.label49.TabIndex = 0;
-            this.label49.Text = "买入次数 :";
+            this.label49.Text = "上升率 :";
             // 
             // NotfCoin
             // 
@@ -2137,8 +2137,8 @@
         private System.Windows.Forms.RichTextBox RichTxtLog;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.Label label50;
-        private System.Windows.Forms.Label LblSellCount;
-        private System.Windows.Forms.Label LblBuyCount;
+        private System.Windows.Forms.Label LblSellRate;
+        private System.Windows.Forms.Label LblBuyRate;
         private System.Windows.Forms.Label label49;
         private System.Windows.Forms.NotifyIcon NotfCoin;
     }

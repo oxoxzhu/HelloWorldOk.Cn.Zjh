@@ -81,6 +81,7 @@
     <Compile Include="Define.cs" />
     <Compile Include="Des.cs" />
     <Compile Include="Download.cs" />
+    <Compile Include="lib\FileHelper.cs" />
     <Compile Include="MachineData.cs" />
     <Compile Include="Main.cs">
       <SubType>Form</SubType>

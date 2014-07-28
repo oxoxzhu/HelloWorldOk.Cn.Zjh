@@ -146,7 +146,6 @@
             this.txt_password.PasswordChar = '*';
             this.txt_password.Size = new System.Drawing.Size(168, 21);
             this.txt_password.TabIndex = 61;
-            this.txt_password.Text = "zhu2154967";
             this.txt_password.TextChanged += new System.EventHandler(this.txt_password_TextChanged);
             this.txt_password.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txt_password_KeyPress);
             // 
@@ -156,7 +155,7 @@
             this.txt_Username.Name = "txt_Username";
             this.txt_Username.Size = new System.Drawing.Size(168, 21);
             this.txt_Username.TabIndex = 60;
-            this.txt_Username.Text = "oxoxzhu@163.com";
+            this.txt_Username.Text = "564712330@qq.com";
             this.txt_Username.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txt_Username_KeyPress);
             // 
             // label3

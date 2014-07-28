@@ -4,6 +4,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using WindowsFormsApplication1.lib;
 
 namespace WindowsFormsApplication1
 {
@@ -19,6 +20,7 @@ namespace WindowsFormsApplication1
         public WriteLog(RichTextBox richTextBoxRemote)
         {
             this.richTextBoxRemote = richTextBoxRemote;
+
         }
 
         /// <summary>
@@ -31,7 +33,11 @@ namespace WindowsFormsApplication1
             richTextBoxRemote.SelectionColor = color;
             richTextBoxRemote.AppendText(text);
             richTextBoxRemote.AppendText(System.Environment.NewLine);
-
+            if (richTextBoxRemote.Lines.Length>500)
+            {
+                richTextBoxRemote.Clear();
+            }
+            FileHelper.WriteLog(text);
         }
 
         /// <summary>   
@@ -69,7 +75,7 @@ namespace WindowsFormsApplication1
         public void LogMessage(string text)
         {
             LogAppendDelegate la = new LogAppendDelegate(LogAppend);
-            richTextBoxRemote.Invoke(la, Color.Black, DateTime.Now.ToString("yyyy.MM.dd HH:mm:ss") + text);
+            richTextBoxRemote.Invoke(la, Color.Wheat, DateTime.Now.ToString("yyyy.MM.dd HH:mm:ss") + text);
         }
 
     }
